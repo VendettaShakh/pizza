@@ -2,8 +2,4 @@
 
 Stack:
 
-ReactJS + хуки
-React Router
-json-server
-classnames
-Redux
+ReactJS / Hooks / React Router / Mockapi / SCSS / Redux
