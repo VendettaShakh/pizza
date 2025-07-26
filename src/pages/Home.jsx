@@ -7,25 +7,30 @@ import Skeleton from '../components/Skeleton';
 
 
 const Home = () => {
+
+const [categoryId, setCategoryId] = React.useState(0)
+const [sortType, setSortType] = React.useState(0);
+
 const [pizzas, setPizzas] = React.useState([])
 const [isLoading, setIsLoading] = React.useState(true)
 
 
 
 React.useEffect(() => {
-fetch ('https://687e376fc07d1a878c31c535.mockapi.io/pizzas').
+setIsLoading(true);
+fetch ('https://687e376fc07d1a878c31c535.mockapi.io/pizzas?category=' + categoryId).
 then((Response) => Response.json()).
 then((Value) => {
   setPizzas(Value);
   setIsLoading(false)
 })
-}, [])
+}, [categoryId, sortType])
 
   return (
     <div>
             <div className="content__top">
-                <Categories/>
-                <Sort/>
+                <Categories categoryId={categoryId} setCategoryId={(index) => setCategoryId (index)} />
+                <Sort sortType={sortType} setSortType={(index) => setSortType (index)}/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">  {isLoading ? [...new Array(12)].map((_, index) => <Skeleton key={index}/>) : pizzas.map((item, index) => <PizzaBlock key={index} {...item} />)}

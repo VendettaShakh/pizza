@@ -1,6 +1,6 @@
 import React from "react";
 
-const Sort = () => {
+const Sort = ( {sortType, setSortType} ) => {
   
   const sortList = ['популярности', 'цене', 'алфавиту']
   const onSelected = (item) => {
@@ -9,7 +9,7 @@ const Sort = () => {
   }
 
   const [openPopup, setOpenPopup] = React.useState(false);
-  const [sortType, setSortType] = React.useState(sortList[0]);
+  
 
   
 
@@ -30,11 +30,11 @@ const Sort = () => {
                     />
                   </svg>
                   <b>Сортировка по:</b>
-                  <span onClick={() => setOpenPopup (!openPopup)}>{sortType}</span>
+                  <span onClick={() => setOpenPopup (!openPopup)}>{sortList[sortType]}</span>
                 </div>
                 {openPopup && (<div className="sort__popup">
                   <ul>
-                    {sortList.map((item, index) => <li key={index} onClick={() => onSelected(item)} className={sortType === item ? 'active' : ''} >{item}</li>)}
+                    {sortList.map((item, index) => <li key={index} onClick={() => onSelected(index)} className={sortType === item ? 'active' : ''} >{item}</li>)}
                   </ul>
               </div>)}
     </div>

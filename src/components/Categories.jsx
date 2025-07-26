@@ -1,11 +1,12 @@
 import React from "react";
 
 
-const Categories = () => {
+const Categories = ({ categoryId, setCategoryId }) => {
+
+  console.log (categoryId)
 
 const CategoriesPizza = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
-const [categoryId, setCategoryId] = React.useState(0)
 
 
 
@@ -13,7 +14,7 @@ const [categoryId, setCategoryId] = React.useState(0)
     return (
         <div className="categories">
               <ul>
-                {CategoriesPizza.map((item, index) => <li key={index} onClick={() => setCategoryId (index)} className = {categoryId === index ? 'active' : ''}>{item}</li>)}
+                {CategoriesPizza.map((item, index) => <li key={index} onClick={() => setCategoryId(index)} className = {categoryId === index ? 'active' : ''}>{item}</li>)}
               </ul>
             </div>
     )
