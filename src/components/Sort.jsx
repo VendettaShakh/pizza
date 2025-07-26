@@ -1,23 +1,25 @@
 import React from "react";
 
-const Sort = ( {sortType, setSortType} ) => {
+const Sort = ( {sortType, setSortType, labelUp, setLabelUp} ) => {
   
-  const sortList = ['популярности', 'цене', 'алфавиту']
+  const sortList = [  {name: 'популярности', prop: 'rating'}, 
+                      {name: 'цене', prop: 'price'},
+                      {name: 'алфавиту', prop: 'title'}
+                    ]
   const onSelected = (item) => {
     setSortType(item)
     setOpenPopup(false)
   }
 
+  
+
   const [openPopup, setOpenPopup] = React.useState(false);
   
-
-  
-
 
   return (
     <div className="sort">
                <div className="sort__label">
-                  <svg
+                  <svg onClick={() => setLabelUp (!labelUp)} className={labelUp ? 'active' : ''}
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
@@ -30,15 +32,16 @@ const Sort = ( {sortType, setSortType} ) => {
                     />
                   </svg>
                   <b>Сортировка по:</b>
-                  <span onClick={() => setOpenPopup (!openPopup)}>{sortList[sortType]}</span>
+                  <span onClick={() => setOpenPopup (!openPopup)}>{sortType.name}</span>
                 </div>
                 {openPopup && (<div className="sort__popup">
                   <ul>
-                    {sortList.map((item, index) => <li key={index} onClick={() => onSelected(index)} className={sortType === item ? 'active' : ''} >{item}</li>)}
+                    {sortList.map((item, index) => <li key={index} onClick={() => onSelected(item)} className={sortType.prop === item.prop ? 'active' : ''} >{item.name}</li>)}
                   </ul>
               </div>)}
     </div>
   )
+  
 }
 
 export default Sort;

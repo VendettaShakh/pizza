@@ -7,6 +7,15 @@
     align-items: center;
     gap: 5px;
   
+
+  svg {
+    cursor: pointer;
+  }
+
+  svg.active {
+    transform: rotateX(180deg);
+  }
+
   @media (max-width: 700px) {
     flex-direction: column;;
     flex-wrap: wrap;
