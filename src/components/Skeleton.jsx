@@ -11,9 +11,7 @@ const Skeleton = () => {
     backgroundColor="#c9bebeff"
     foregroundColor="#ecebeb"
   >
-    <circle cx="110" cy="110" r="110" /> 
-    <rect x="10" y="230" rx="0" ry="0" width="200" height="45" /> 
-    <rect x="10" y="300" rx="0" ry="0" width="200" height="45" />
+    <rect x="0" y="0" rx="15" ry="15" width="280" height="456" />
   </ContentLoader>
 )
 }
