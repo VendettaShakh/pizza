@@ -1,13 +1,19 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setSortType } from '../redux/filterSlice';
 
-const Sort = ( {sortType, setSortType, labelUp, setLabelUp} ) => {
+
+const Sort = ( { labelUp, setLabelUp } ) => {
+
+  const sortType = useSelector (state => state.filterSlice.sortType)
+  const dispatch = useDispatch ()
   
   const sortList = [  {name: 'популярности', prop: 'rating'}, 
                       {name: 'цене', prop: 'price'},
                       {name: 'алфавиту', prop: 'title'}
                     ]
   const onSelected = (item) => {
-    setSortType(item)
+    dispatch (setSortType(item))
     setOpenPopup(false)
   }
 
