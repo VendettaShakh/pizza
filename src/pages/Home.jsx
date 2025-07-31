@@ -1,11 +1,19 @@
 import React from 'react'
 
+import axios from 'axios';
+
+import qs from 'qs'
+
+import { SearchContext } from '../App';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+
+import { setPizzas } from '../redux/pizzasSlice';
+
 import Categories from '../components/Categories'
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { SearchContext } from '../App';
-import { useDispatch, useSelector } from 'react-redux';
-import { setPizzas } from '../redux/pizzasSlice';
+
 
 
 
@@ -15,19 +23,27 @@ const categoryId = useSelector (state => state.filterSlice.categoryId)
 const sortType = useSelector (state => state.filterSlice.sortType)
 const pizzas = useSelector (state => state.pizzasSlice.pizzas)
 const dispatch = useDispatch ()
+const navigate = useNavigate ()
 
 const {searchInput} = React.useContext(SearchContext);
   
 
 const [labelUp, setLabelUp] = React.useState(false)
 
+// React.useEffect(() => {
+//   const queryString = qs.stringify(
+//     {
+//     categoryId, sortProp: sortType.prop, labelUp
+//     }
+//   )
+//   navigate (`?${queryString}`)
+// }, [categoryId, sortType, labelUp, searchInput])
 
 React.useEffect(() => {
-fetch (`https://687e376fc07d1a878c31c535.mockapi.io/pizzas?${categoryId > 0 ? `category=${categoryId}`: ''}&sortBy=${sortType.prop}${searchInput ? `&search=${searchInput}` : ''}&order=${labelUp ? 'asc' : 'desc'}`).
-then((Response) => Response.json()).
-then((Value) => {
-  dispatch (setPizzas(Value));
-})
+axios.get(`https://687e376fc07d1a878c31c535.mockapi.io/pizzas?${categoryId > 0 ? `category=${categoryId}`: ''}&sortBy=${sortType.prop}${searchInput ? `&search=${searchInput}` : ''}&order=${labelUp ? 'asc' : 'desc'}`).
+then((Response) => {
+ dispatch (setPizzas(Response.data))}
+)
 },[categoryId, sortType, labelUp, searchInput])
 
   return (

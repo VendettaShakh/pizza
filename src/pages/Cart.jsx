@@ -1,9 +1,18 @@
 import React from 'react'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setCartItems, setClearCart } from '../redux/cartSlice'
+
 import styles from '../styles/components/cart.scss'
 import CartItem from '../components/CartItem'
 
 const Cart = () => {
-const [cartItems, setCartItems] = React.useState ([1, 2])
+
+    const dispatch = useDispatch ();
+
+    const totalPrice = useSelector (state => state.cartSlice.totalPrice)
+    const totalQty = useSelector (state => state.cartSlice.cartItems.length)
+    const items = useSelector (state => state.cartSlice.cartItems)
 
   return (
     <div className='content'>
@@ -16,21 +25,21 @@ const [cartItems, setCartItems] = React.useState ([1, 2])
                   </div>
                   <div className="cart--clear">
                     <img width={25} height={25} src="images/cart-cart.svg" alt="" />
-                    <h3>Очистить корзину</h3>
+                    <h3 onClick={() => dispatch(setClearCart())}>Очистить корзину</h3>
                   </div>
                 </div>
                 <div className="cart--items">
-                   {cartItems.map((item) => <CartItem/>)} 
+                   {items.map((item) => <CartItem {...item}/>)} 
                  </div>
                 <div className="cart--footer">
                   <div className="cart--footer--info">
                     <div className="cart--footer--all">
                       <span>Всего пицц:</span>
-                      <b>3 шт.</b>
+                      <b>{totalQty} шт.</b>
                     </div>
                     <div className="cart--footer--price">
                       <span>Сумма заказа:</span>
-                      <b>900 руб.</b>
+                      <b>{totalPrice} руб.</b>
                    </div>
                   </div>
                   <div className="cart--footer--btn">
